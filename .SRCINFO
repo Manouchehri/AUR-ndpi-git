@@ -1,16 +1,17 @@
 pkgbase = ndpi-git
 	pkgdesc = Open and Extensible GPLv3 Deep Packet Inspection Library
-	pkgver = 261.6f3d5a7
+	pkgver = 1.7.r593.g2b0809f
 	pkgrel = 1
-	url = http://www.ntop.org/products/ndpi/
+	url = https://www.ntop.org/products/ndpi/
 	arch = i686
 	arch = x86_64
 	license = GPL3
 	makedepends = git
+	provides = ndpi
 	conflicts = ndpi
 	replaces = ndpi
-	source = ndpi::git+https://github.com/ntop/nDPI.git
-	md5sums = SKIP
+	source = git://github.com/ntop/ndpi#branch=dev
+	sha512sums = SKIP
 
 pkgname = ndpi-git
 

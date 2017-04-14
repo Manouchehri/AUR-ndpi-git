@@ -1,32 +1,41 @@
-# Maintainer: M0Rf30
+# Maintainer: David Manouchehri <david.manouchehri@riseup.net>
+# Contributor: M0Rf30
 
-pkgname=ndpi-git
-pkgver=261.6f3d5a7
+_gitname=ndpi
+pkgname="${_gitname}-git"
+_gitbranch=dev
+_gitauthor=ntop
+pkgver=1.7.r593.g2b0809f
 pkgrel=1
 pkgdesc="Open and Extensible GPLv3 Deep Packet Inspection Library"
 arch=('i686' 'x86_64')
-url="http://www.ntop.org/products/ndpi/"
+url="https://www.ntop.org/products/ndpi/"
 license=('GPL3')
 replaces=('ndpi')
 conflicts=('ndpi')
-source=('ndpi::git+https://github.com/ntop/nDPI.git')
+source=("git://github.com/${_gitauthor}/${_gitname}#branch=${_gitbranch}")
+sha512sums=('SKIP')
+conflicts=("${_gitname}")
+provides=("${_gitname}")
 makedepends=('git')
 
 pkgver() {
-  cd ndpi
-  echo $(git rev-list --count dev).$(git rev-parse --short dev)
+	cd "${srcdir}/${_gitname}"
+	(
+		set -o pipefail
+		git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+		printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+	)
 }
 
 build() {
-  cd ndpi
-  ./autogen.sh
-  ./configure --prefix=/usr
-  make
+	cd "${srcdir}/${_gitname}"
+	./autogen.sh
+	./configure --prefix=/usr
+	make
 }
-         
+		 
 package() {
-  cd ndpi
-  make DESTDIR="$pkgdir" install
+	cd "${srcdir}/${_gitname}"
+	make DESTDIR="${pkgdir}" install
 }
-
-md5sums=('SKIP')
