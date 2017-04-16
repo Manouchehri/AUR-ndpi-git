@@ -11,8 +11,6 @@ pkgdesc="Open and Extensible GPLv3 Deep Packet Inspection Library"
 arch=('i686' 'x86_64')
 url="https://www.ntop.org/products/ndpi/"
 license=('GPL3')
-replaces=('ndpi')
-conflicts=('ndpi')
 source=("git://github.com/${_gitauthor}/${_gitname}#branch=${_gitbranch}")
 sha512sums=('SKIP')
 conflicts=("${_gitname}")
